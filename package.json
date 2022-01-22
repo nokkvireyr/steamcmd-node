@@ -5,6 +5,9 @@
   "license": "MIT",
   "main": "dist/cjs/index.js",
   "module": "dist/mjs/index.js",
+  "repository": {
+    "url": "https://github.com/nokkvireyr/steamcmd-node"
+  },
   "exports": {
     ".": {
       "import": "./dist/mjs/index.js",
