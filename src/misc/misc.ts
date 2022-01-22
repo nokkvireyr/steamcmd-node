@@ -1,7 +1,7 @@
 import axios from "axios";
 import { createWriteStream } from "fs";
 import path from "path";
-const decompress = require('decompress');
+import decompress from 'decompress';
 
 export const rootFolder:string = path.join('./files');
 

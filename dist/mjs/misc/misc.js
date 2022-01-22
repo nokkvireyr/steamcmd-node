@@ -1,7 +1,7 @@
 import axios from "axios";
 import { createWriteStream } from "fs";
 import path from "path";
-const decompress = require('decompress');
+import decompress from 'decompress';
 export const rootFolder = path.join('./files');
 export const unpress = async (name) => {
     return new Promise((resolve) => decompress(path.join(rootFolder, name), rootFolder).then((files) => resolve(files)));
