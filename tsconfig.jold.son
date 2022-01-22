@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "es5",                          
+    "module": "commonjs",                    
+    "outDir": "./lib",
+    "lib": ["dom", "es6"],
+    "strict": true,         
+    "noImplicitAny": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+  },
+  "include": ["src/**/*.ts", "src/arg.js"],
+  "exclude": [
+    ".git",
+    "bin",
+    "build",
+    "node_modules"
+  ]
+}
