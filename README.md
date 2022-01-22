@@ -7,6 +7,9 @@ Node library to call the SteamCMD client.
 ## Examples
 ### Execute raw command lines on steamcmd
 
+    const { SteamCMD } = require('steamcmd-node'); // Commonjs Import
+    import { SteamCMD } from 'steamcmd-node'; // ES6 Import
+
     const steamcmd = new SteamCMD();
 
     /*
@@ -27,6 +30,9 @@ Node library to call the SteamCMD client.
 
 ### Fetch application info
 
+    const { SteamCMD } = require('steamcmd-node'); // Commonjs Import
+    import { SteamCMD } from 'steamcmd-node'; // ES6 Import 
+
     const steamcmd = new SteamCMD();
 
     /*
@@ -36,6 +42,9 @@ Node library to call the SteamCMD client.
 
 ### Update application
 
+    const { SteamCMD } = require('steamcmd-node'); // Commonjs Import
+    import { SteamCMD } from 'steamcmd-node'; // ES6 Import
+
     const steamcmd = new SteamCMD();
 
     /*
@@ -44,6 +53,9 @@ Node library to call the SteamCMD client.
     const res = await steamcmd.updateApp({appid: 730});    
 
 ### Update application
+
+    const { SteamCMD } = require('steamcmd-node'); // Commonjs Import
+    import { SteamCMD } from 'steamcmd-node'; // ES6 Import
 
     const steamcmd = new SteamCMD();
 
