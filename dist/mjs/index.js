@@ -1,13 +1,8 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const child_process_1 = require("child_process");
-const console_1 = require("console");
-const fs_1 = require("fs");
-const path_1 = __importDefault(require("path"));
-const misc_1 = require("./misc/misc");
+import { spawn } from "child_process";
+import { error } from "console";
+import { existsSync, mkdirSync } from "fs";
+import path from "path";
+import { downloadFile, rootFolder, unpress } from "./misc/misc";
 const vdf = require('simple-vdf');
 class SteamCMD {
     downloadLinks = {
@@ -25,16 +20,16 @@ class SteamCMD {
      * Download the steam cmd script
      */
     downloadCMD = async () => {
-        if (!(await (0, fs_1.existsSync)(misc_1.rootFolder))) {
-            await (0, fs_1.mkdirSync)(misc_1.rootFolder);
+        if (!(await existsSync(rootFolder))) {
+            await mkdirSync(rootFolder);
         }
         const dLink = this.downloadLinks[this.platform];
         if (dLink) {
             this.fileName = dLink.url.split('/')[dLink.url.split('/').length - 1];
-            this.cmd = path_1.default.join(misc_1.rootFolder, this.fileName.split('.')[0] + dLink.ext);
-            if (!(await (0, fs_1.existsSync)(path_1.default.join(misc_1.rootFolder, this.fileName)))) {
-                await (0, misc_1.downloadFile)(dLink.url, this.fileName);
-                const ab = await (0, misc_1.unpress)(this.fileName);
+            this.cmd = path.join(rootFolder, this.fileName.split('.')[0] + dLink.ext);
+            if (!(await existsSync(path.join(rootFolder, this.fileName)))) {
+                await downloadFile(dLink.url, this.fileName);
+                const ab = await unpress(this.fileName);
             }
         }
         else {
@@ -54,7 +49,7 @@ class SteamCMD {
             if (config && config.install_dir) {
                 installdir = ['force_install_dir', config.install_dir];
             }
-            const sp = await (0, child_process_1.spawn)(`${this.cmd}`, [...installdir, '+login', 'anonymous', ...commands, '+quit', '>', path_1.default.join(misc_1.rootFolder, 'output/')]);
+            const sp = await spawn(`${this.cmd}`, [...installdir, '+login', 'anonymous', ...commands, '+quit', '>', path.join(rootFolder, 'output/')]);
             var data = '';
             for await (let std of sp.stdout) {
                 data += std;
@@ -63,7 +58,7 @@ class SteamCMD {
                 sp.on('close', resolve);
             });
             if (exitCode && exitCode != 7) {
-                throw new Error(`Command line error ${exitCode}, ${console_1.error}`);
+                throw new Error(`Command line error ${exitCode}, ${error}`);
             }
             return data;
         }
@@ -109,7 +104,7 @@ class SteamCMD {
         if (!cfg.path) {
             throw new Error('Please provide a installation locagion!');
         }
-        if (!path_1.default.isAbsolute(cfg.path))
+        if (!path.isAbsolute(cfg.path))
             throw Error(`The installation path must be absolute, your path now is: ${cfg.path}`);
         //Commands
         const command = [
@@ -132,7 +127,7 @@ class SteamCMD {
         if (!cfg.path) {
             throw new Error('Please provide a installation locagion!');
         }
-        if (!path_1.default.isAbsolute(cfg.path))
+        if (!path.isAbsolute(cfg.path))
             throw Error(`The installation path must be absolute, your path now is: ${cfg.path}`);
         //Commands
         const command = [
@@ -151,5 +146,5 @@ class SteamCMD {
         return Promise.reject(new Error('Something went wrong, The data returned from steamCMD is invalid.'));
     };
 }
-exports.default = SteamCMD;
+export default SteamCMD;
 module.exports = SteamCMD;
