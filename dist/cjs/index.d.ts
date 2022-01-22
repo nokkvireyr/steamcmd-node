@@ -1,5 +1,5 @@
 import { iExecRaw, iConfig } from "./misc/misc";
-declare class SteamCMD {
+export declare class SteamCMD {
     downloadLinks: {
         win32: {
             url: string;
@@ -55,4 +55,3 @@ declare class SteamCMD {
         updated?: undefined;
     }>;
 }
-export default SteamCMD;

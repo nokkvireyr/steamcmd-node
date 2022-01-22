@@ -5,7 +5,7 @@ import path from "path";
 import { downloadFile, iExecRaw, iConfig, rootFolder, unpress } from "./misc/misc";
 const vdf = require('simple-vdf');
 
-class SteamCMD {
+export class SteamCMD {
 
     downloadLinks:{win32: {url: string, ext: string}, darwin: {url: string, ext: string}, linux: {url: string, ext: string}, [key: string]: {url:string, ext: string}} = {
         'win32': {url: 'https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip', ext: '.exe'},
@@ -153,6 +153,3 @@ class SteamCMD {
         return Promise.reject(new Error('Something went wrong, The data returned from steamCMD is invalid.'));
     }
 }
-
-export default SteamCMD;
-module.exports = SteamCMD;

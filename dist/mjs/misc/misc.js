@@ -2,7 +2,7 @@ import axios from "axios";
 import { createWriteStream } from "fs";
 import path from "path";
 const decompress = require('decompress');
-export const rootFolder = path.join(__dirname, '../../files');
+export const rootFolder = path.join('../../files');
 export const unpress = async (name) => {
     return new Promise((resolve) => decompress(path.join(rootFolder, name), rootFolder).then((files) => resolve(files)));
 };
@@ -18,4 +18,3 @@ export const downloadFile = async (fileUrl, filename) => {
         writer.on('finish', resolve);
     });
 };
-module.exports = { rootFolder, unpress, downloadFile };

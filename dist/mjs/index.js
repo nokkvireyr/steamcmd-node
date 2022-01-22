@@ -4,7 +4,7 @@ import { existsSync, mkdirSync } from "fs";
 import path from "path";
 import { downloadFile, rootFolder, unpress } from "./misc/misc";
 const vdf = require('simple-vdf');
-class SteamCMD {
+export class SteamCMD {
     downloadLinks = {
         'win32': { url: 'https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip', ext: '.exe' },
         'darwin': { url: 'https://steamcdn-a.akamaihd.net/client/installer/steamcmd_osx.tar.gz', ext: '.sh' },
@@ -146,5 +146,3 @@ class SteamCMD {
         return Promise.reject(new Error('Something went wrong, The data returned from steamCMD is invalid.'));
     };
 }
-export default SteamCMD;
-module.exports = SteamCMD;
