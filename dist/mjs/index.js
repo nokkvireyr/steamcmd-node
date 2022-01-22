@@ -84,6 +84,7 @@ export class SteamCMD {
             '+app_info_print', conf.appid,
             '+find', 'e' // fill the buffer so info's not truncated on Windows
         ];
+        console.log(`[STEAMCMD] Getting app info for ${conf.appid}, This may take upto a minute!`);
         await this.execRaw(preCommand);
         const data = await this.execRaw(command);
         const start = data?.indexOf(`"${conf.appid}"`);
@@ -102,7 +103,7 @@ export class SteamCMD {
     updateApp = async (cfg) => {
         //Make sure the path is absolute.
         if (!cfg.path) {
-            throw new Error('Please provide a installation locagion!');
+            throw new Error('Please provide a installation location!');
         }
         if (!path.isAbsolute(cfg.path))
             throw Error(`The installation path must be absolute, your path now is: ${cfg.path}`);
@@ -110,6 +111,7 @@ export class SteamCMD {
         const command = [
             '+app_update', cfg.appid
         ];
+        console.log(`[STEAMCMD] Updating ${cfg.appid}`);
         const cmd = await this.execRaw(command, { install_dir: cfg.path });
         if (!cmd) {
             throw new Error('Something went wrong, The data returned from steamCMD is invalid.');
@@ -125,7 +127,7 @@ export class SteamCMD {
     installApp = async (cfg) => {
         //Make sure the path is absolute.
         if (!cfg.path) {
-            throw new Error('Please provide a installation locagion!');
+            throw new Error('Please provide a installation location!');
         }
         if (!path.isAbsolute(cfg.path))
             throw Error(`The installation path must be absolute, your path now is: ${cfg.path}`);
@@ -133,6 +135,7 @@ export class SteamCMD {
         const command = [
             '+app_update', cfg.appid, '+validate'
         ];
+        console.log(`[STEAMCMD] installing ${cfg.appid}`);
         const cmd = await this.execRaw(command, { install_dir: cfg.path });
         if (!cmd) {
             throw new Error('Something went wrong, The data returned from steamCMD is invalid.');

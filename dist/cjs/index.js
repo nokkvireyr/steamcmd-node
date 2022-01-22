@@ -133,6 +133,7 @@ class SteamCMD {
                 '+app_info_print', conf.appid,
                 '+find', 'e' // fill the buffer so info's not truncated on Windows
             ];
+            console.log(`[STEAMCMD] Getting app info for ${conf.appid}, This may take upto a minute!`);
             yield this.execRaw(preCommand);
             const data = yield this.execRaw(command);
             const start = data === null || data === void 0 ? void 0 : data.indexOf(`"${conf.appid}"`);
@@ -151,7 +152,7 @@ class SteamCMD {
         this.updateApp = (cfg) => __awaiter(this, void 0, void 0, function* () {
             //Make sure the path is absolute.
             if (!cfg.path) {
-                throw new Error('Please provide a installation locagion!');
+                throw new Error('Please provide a installation location!');
             }
             if (!path_1.default.isAbsolute(cfg.path))
                 throw Error(`The installation path must be absolute, your path now is: ${cfg.path}`);
@@ -159,6 +160,7 @@ class SteamCMD {
             const command = [
                 '+app_update', cfg.appid
             ];
+            console.log(`[STEAMCMD] Updating ${cfg.appid}`);
             const cmd = yield this.execRaw(command, { install_dir: cfg.path });
             if (!cmd) {
                 throw new Error('Something went wrong, The data returned from steamCMD is invalid.');
@@ -174,7 +176,7 @@ class SteamCMD {
         this.installApp = (cfg) => __awaiter(this, void 0, void 0, function* () {
             //Make sure the path is absolute.
             if (!cfg.path) {
-                throw new Error('Please provide a installation locagion!');
+                throw new Error('Please provide a installation location!');
             }
             if (!path_1.default.isAbsolute(cfg.path))
                 throw Error(`The installation path must be absolute, your path now is: ${cfg.path}`);
@@ -182,6 +184,7 @@ class SteamCMD {
             const command = [
                 '+app_update', cfg.appid, '+validate'
             ];
+            console.log(`[STEAMCMD] installing ${cfg.appid}`);
             const cmd = yield this.execRaw(command, { install_dir: cfg.path });
             if (!cmd) {
                 throw new Error('Something went wrong, The data returned from steamCMD is invalid.');
