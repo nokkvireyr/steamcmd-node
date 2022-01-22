@@ -3,7 +3,7 @@ import { createWriteStream } from "fs";
 import path from "path";
 const decompress = require('decompress');
 
-export const rootFolder:string = path.join('../../files');
+export const rootFolder:string = path.join('./files');
 
 export const unpress = async (name:string) =>  {
     return new Promise((resolve) => decompress(path.join(rootFolder, name), rootFolder).then((files:any) => resolve(files)));

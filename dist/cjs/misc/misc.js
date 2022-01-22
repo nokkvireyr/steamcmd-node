@@ -17,7 +17,7 @@ const axios_1 = __importDefault(require("axios"));
 const fs_1 = require("fs");
 const path_1 = __importDefault(require("path"));
 const decompress = require('decompress');
-exports.rootFolder = path_1.default.join('../../files');
+exports.rootFolder = path_1.default.join('./files');
 const unpress = (name) => __awaiter(void 0, void 0, void 0, function* () {
     return new Promise((resolve) => decompress(path_1.default.join(exports.rootFolder, name), exports.rootFolder).then((files) => resolve(files)));
 });
