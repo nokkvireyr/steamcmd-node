@@ -41,21 +41,19 @@ class SteamCMD {
             if (!(yield (0, fs_1.existsSync)(misc_1.rootFolder))) {
                 yield (0, fs_1.mkdirSync)(misc_1.rootFolder);
             }
-            if (!(yield (0, fs_1.existsSync)(path_1.default.join(misc_1.rootFolder, 'output/')))) {
-                yield (0, fs_1.mkdirSync)(path_1.default.join(misc_1.rootFolder, 'output/'));
-            }
             const dLink = this.downloadLinks[this.platform];
             if (dLink) {
                 this.fileName = dLink.url.split('/')[dLink.url.split('/').length - 1];
                 this.cmd = path_1.default.join(misc_1.rootFolder, this.fileName.split('.')[0] + dLink.ext);
                 if (!(yield (0, fs_1.existsSync)(path_1.default.join(misc_1.rootFolder, this.fileName)))) {
                     yield (0, misc_1.downloadFile)(dLink.url, this.fileName);
-                    yield (0, misc_1.unpress)(this.fileName);
+                    const ab = yield (0, misc_1.unpress)(this.fileName);
                 }
             }
             else {
                 throw new Error('You are running a unsupported platform.');
             }
+            return true;
         });
         /**
          * Exec steamcmd commands
@@ -66,43 +64,38 @@ class SteamCMD {
                 if (!this.cmd) {
                     yield this.downloadCMD();
                 }
-                if (this.cmd) {
-                    var installdir = [];
-                    if (config && config.install_dir) {
-                        installdir = ['force_install_dir', config.install_dir];
+                var installdir = [];
+                if (config && config.install_dir) {
+                    installdir = ['force_install_dir', config.install_dir];
+                }
+                const sp = yield (0, child_process_1.spawn)(`${this.cmd}`, [...installdir, '+login', 'anonymous', ...commands, '+quit', '>', path_1.default.join(misc_1.rootFolder, 'output/')]);
+                var data = '';
+                try {
+                    for (var _b = __asyncValues(sp.stdout), _c; _c = yield _b.next(), !_c.done;) {
+                        let std = _c.value;
+                        data += std;
                     }
-                    const sp = yield (0, child_process_1.spawn)(`${this.cmd}`, [...installdir, '+login', 'anonymous', ...commands, '+quit', '>', path_1.default.join(misc_1.rootFolder, 'output/')]);
-                    var data = '';
+                }
+                catch (e_1_1) { e_1 = { error: e_1_1 }; }
+                finally {
                     try {
-                        for (var _b = __asyncValues(sp.stdout), _c; _c = yield _b.next(), !_c.done;) {
-                            let std = _c.value;
-                            data += std;
-                        }
+                        if (_c && !_c.done && (_a = _b.return)) yield _a.call(_b);
                     }
-                    catch (e_1_1) { e_1 = { error: e_1_1 }; }
-                    finally {
-                        try {
-                            if (_c && !_c.done && (_a = _b.return)) yield _a.call(_b);
-                        }
-                        finally { if (e_1) throw e_1.error; }
-                    }
-                    const exitCode = yield new Promise((resolve, reject) => {
-                        sp.on('close', resolve);
-                    });
-                    if (exitCode && exitCode != 7) {
-                        throw new Error(`Command line error ${exitCode}, ${console_1.error}`);
-                    }
-                    return data;
+                    finally { if (e_1) throw e_1.error; }
                 }
-                else {
-                    throw new Error('You are running a unsupported platform.');
+                const exitCode = yield new Promise((resolve, reject) => {
+                    sp.on('close', resolve);
+                });
+                if (exitCode && exitCode != 7) {
+                    throw new Error(`Command line error ${exitCode}, ${console_1.error}`);
                 }
+                return data;
             }
             catch (e) {
                 throw e;
             }
         });
-        this.getAppInfo = (conf) => __awaiter(this, void 0, void 0, function* () {
+        this.appInfo = (conf) => __awaiter(this, void 0, void 0, function* () {
             // The first call to app_info_print from a new install will return nothing,
             // and it will instead prep an entry for the info and request it.
             // It won't block though, and if the session closes before it can save,

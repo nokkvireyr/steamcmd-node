@@ -19,7 +19,7 @@ const path_1 = __importDefault(require("path"));
 const decompress = require('decompress');
 exports.rootFolder = path_1.default.join(__dirname, '../../files');
 const unpress = (name) => __awaiter(void 0, void 0, void 0, function* () {
-    return new Promise((resolve) => decompress(path_1.default.join(exports.rootFolder, name), exports.rootFolder).then((files) => resolve));
+    return new Promise((resolve) => decompress(path_1.default.join(exports.rootFolder, name), exports.rootFolder).then((files) => resolve(files)));
 });
 exports.unpress = unpress;
 const downloadFile = (fileUrl, filename) => __awaiter(void 0, void 0, void 0, function* () {

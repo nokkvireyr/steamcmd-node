@@ -1,14 +1,21 @@
-import axios from "axios";
-import { createWriteStream } from "fs";
-import path from "path";
-const decompress = require('decompress');
-export const rootFolder = path.join(__dirname, '../../files');
-export const unpress = async (name) => {
-    return new Promise((resolve) => decompress(path.join(rootFolder, name), rootFolder).then((files) => resolve));
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-export const downloadFile = async (fileUrl, filename) => {
-    const writer = createWriteStream(path.join(rootFolder, filename));
-    const { data } = await axios({
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.downloadFile = exports.unpress = exports.rootFolder = void 0;
+const axios_1 = __importDefault(require("axios"));
+const fs_1 = require("fs");
+const path_1 = __importDefault(require("path"));
+const decompress = require('decompress');
+exports.rootFolder = path_1.default.join(__dirname, '../../files');
+const unpress = async (name) => {
+    return new Promise((resolve) => decompress(path_1.default.join(exports.rootFolder, name), exports.rootFolder).then((files) => resolve(files)));
+};
+exports.unpress = unpress;
+const downloadFile = async (fileUrl, filename) => {
+    const writer = (0, fs_1.createWriteStream)(path_1.default.join(exports.rootFolder, filename));
+    const { data } = await (0, axios_1.default)({
         method: 'get',
         url: fileUrl,
         responseType: 'stream',
@@ -18,4 +25,5 @@ export const downloadFile = async (fileUrl, filename) => {
         writer.on('finish', resolve);
     });
 };
-module.exports = { rootFolder, unpress, downloadFile };
+exports.downloadFile = downloadFile;
+module.exports = { rootFolder: exports.rootFolder, unpress: exports.unpress, downloadFile: exports.downloadFile };

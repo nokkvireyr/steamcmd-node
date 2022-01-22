@@ -25,12 +25,12 @@ declare class SteamCMD {
     /**
      * Download the steam cmd script
      */
-    downloadCMD: () => Promise<void>;
+    downloadCMD: () => Promise<boolean>;
     /**
      * Exec steamcmd commands
      */
     execRaw: (commands: Array<any>, config?: iExecRaw | undefined) => Promise<string>;
-    getAppInfo: (conf: iConfig) => Promise<any>;
+    appInfo: (conf: iConfig) => Promise<any>;
     /**
      *
      * @param cfg {Install location and appid}
