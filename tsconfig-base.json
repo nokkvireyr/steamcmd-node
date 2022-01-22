@@ -18,13 +18,8 @@
         "strict": true,
         "traceResolution": false,
         "types": ["node"],
-        "paths": {
-            "@misc": [
-                "./misc/misc"
-            ]
-        }
     },
     "compileOnSave": false,
     "exclude": ["node_modules", "dist"],
-    "include": ["src/**/*.ts"]
+    "include": ["src"]
 }

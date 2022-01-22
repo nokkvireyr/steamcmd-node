@@ -24,7 +24,7 @@ const child_process_1 = require("child_process");
 const console_1 = require("console");
 const fs_1 = require("fs");
 const path_1 = __importDefault(require("path"));
-const _misc_1 = require("@misc");
+const misc_js_1 = require("./misc/misc.js");
 const vdf = require('simple-vdf');
 class SteamCMD {
     constructor() {
@@ -39,16 +39,16 @@ class SteamCMD {
          * Download the steam cmd script
          */
         this.downloadCMD = () => __awaiter(this, void 0, void 0, function* () {
-            if (!(yield (0, fs_1.existsSync)(_misc_1.rootFolder))) {
-                yield (0, fs_1.mkdirSync)(_misc_1.rootFolder);
+            if (!(yield (0, fs_1.existsSync)(misc_js_1.rootFolder))) {
+                yield (0, fs_1.mkdirSync)(misc_js_1.rootFolder);
             }
             const dLink = this.downloadLinks[this.platform];
             if (dLink) {
                 this.fileName = dLink.url.split('/')[dLink.url.split('/').length - 1];
-                this.cmd = path_1.default.join(_misc_1.rootFolder, this.fileName.split('.')[0] + dLink.ext);
-                if (!(yield (0, fs_1.existsSync)(path_1.default.join(_misc_1.rootFolder, this.fileName)))) {
-                    yield (0, _misc_1.downloadFile)(dLink.url, this.fileName);
-                    const ab = yield (0, _misc_1.unpress)(this.fileName);
+                this.cmd = path_1.default.join(misc_js_1.rootFolder, this.fileName.split('.')[0] + dLink.ext);
+                if (!(yield (0, fs_1.existsSync)(path_1.default.join(misc_js_1.rootFolder, this.fileName)))) {
+                    yield (0, misc_js_1.downloadFile)(dLink.url, this.fileName);
+                    const ab = yield (0, misc_js_1.unpress)(this.fileName);
                 }
             }
             else {
@@ -69,7 +69,7 @@ class SteamCMD {
                 if (config && config.install_dir) {
                     installdir = ['force_install_dir', config.install_dir];
                 }
-                const sp = yield (0, child_process_1.spawn)(`${this.cmd}`, [...installdir, '+login', 'anonymous', ...commands, '+quit', '>', path_1.default.join(_misc_1.rootFolder, 'output/')]);
+                const sp = yield (0, child_process_1.spawn)(`${this.cmd}`, [...installdir, '+login', 'anonymous', ...commands, '+quit', '>', path_1.default.join(misc_js_1.rootFolder, 'output/')]);
                 var data = '';
                 try {
                     for (var _b = __asyncValues(sp.stdout), _c; _c = yield _b.next(), !_c.done;) {

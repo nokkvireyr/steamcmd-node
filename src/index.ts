@@ -2,7 +2,7 @@ import { spawn } from "child_process";
 import { error } from "console";
 import { existsSync, mkdirSync } from "fs";
 import path from "path";
-import { downloadFile, iExecRaw, iConfig, rootFolder, unpress } from "@misc";
+import { downloadFile, iExecRaw, iConfig, rootFolder, unpress } from "./misc/misc.js";
 const vdf = require('simple-vdf');
 
 export class SteamCMD {
