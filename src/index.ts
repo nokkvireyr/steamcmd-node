@@ -3,7 +3,7 @@ import { error } from "console";
 import { existsSync, mkdirSync } from "fs";
 import path from "path";
 import { downloadFile, iExecRaw, iConfig, rootFolder, unpress } from "./misc/misc.js";
-const vdf =require('simple-vdf');
+import * as vdf from 'vdf-parser';
 
 export class SteamCMD {
 

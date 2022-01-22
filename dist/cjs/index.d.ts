@@ -30,7 +30,7 @@ export declare class SteamCMD {
      * Exec steamcmd commands
      */
     execRaw: (commands: Array<any>, config?: iExecRaw | undefined) => Promise<string>;
-    appInfo: (conf: iConfig) => Promise<any>;
+    appInfo: (conf: iConfig) => Promise<object>;
     /**
      *
      * @param cfg {Install location and appid}
