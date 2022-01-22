@@ -1,4 +1,4 @@
-import { iExecRaw, iConfig } from "./misc/misc";
+import { iExecRaw, iConfig } from "@misc";
 export declare class SteamCMD {
     downloadLinks: {
         win32: {
