@@ -64,7 +64,7 @@ class SteamCMD {
             const dLink = this.downloadLinks[this.platform];
             if (dLink) {
                 this.fileName = dLink.url.split('/')[dLink.url.split('/').length - 1];
-                this.cmd = path_1.default.join(misc_js_1.rootFolder, this.fileName.split('.')[0] + dLink.ext);
+                this.cmd = path_1.default.join(misc_js_1.rootFolder, 'steamcmd' + dLink.ext);
                 if (!(yield (0, fs_1.existsSync)(path_1.default.join(misc_js_1.rootFolder, this.fileName)))) {
                     yield (0, misc_js_1.downloadFile)(dLink.url, this.fileName);
                     const ab = yield (0, misc_js_1.unpress)(this.fileName);

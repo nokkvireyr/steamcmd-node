@@ -26,7 +26,7 @@ export class SteamCMD {
         const dLink = this.downloadLinks[this.platform];
         if (dLink) {
             this.fileName = dLink.url.split('/')[dLink.url.split('/').length - 1];
-            this.cmd = path.join(rootFolder, this.fileName.split('.')[0] + dLink.ext);
+            this.cmd = path.join(rootFolder, 'steamcmd' + dLink.ext);
             if (!(await existsSync(path.join(rootFolder, this.fileName)))) {
                 await downloadFile(dLink.url, this.fileName);
                 const ab = await unpress(this.fileName);
