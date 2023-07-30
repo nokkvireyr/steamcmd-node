@@ -1,3 +1,6 @@
+# This project is no longer in development and is considered not safe to use in production.
+# DEPRECATED.
+
 # steamcmd-node
 Node library to call the SteamCMD client.
 
